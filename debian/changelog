@@ -1,0 +1,10 @@
+apache-cf-realip (0.1.0-1) unstable; urgency=medium
+
+  * Initial release
+  * Port of nginx-cf-realip for Apache httpd
+  * Automatic Cloudflare IPv4/IPv6 CIDR range fetching
+  * SHA256 change detection
+  * Atomic file writes
+  * Integration with mod_remoteip
+
+ -- Rumen Damyanov <contact@rumenx.com>  Tue, 01 Apr 2026 12:00:00 +0300
