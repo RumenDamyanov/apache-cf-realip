@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+export CARGO_HOME = $(CURDIR)/target/cargo_home
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cargo build --release
+	apxs -c -Wc,-Wall -Wc,-std=c99 \
+		-Wl,target/release/libcf_remoteip.a \
+		-lpthread -ldl -lm \
+		src/mod_cf_remoteip.c
+
+override_dh_auto_install:
+	install -D -m 644 src/.libs/mod_cf_remoteip.so \
+		debian/apache-cf-remoteip/usr/lib/apache2/modules/mod_cf_remoteip.so
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+	cargo clean 2>/dev/null || true
+	rm -rf src/.libs src/*.o src/*.lo src/*.la src/*.slo
+	dh_auto_clean

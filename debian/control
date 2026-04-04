@@ -1,0 +1,18 @@
+Source: apache-cf-remoteip
+Section: web
+Priority: optional
+Maintainer: Rumen Damyanov <contact@rumenx.com>
+Build-Depends: debhelper-compat (= 13), rustc, cargo, apache2-dev
+Standards-Version: 4.6.0
+Homepage: https://github.com/RumenDamyanov/apache-cf-remoteip
+
+Package: apache-cf-remoteip
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         apache2 (>= 2.4.0)
+Description: Apache module for automatic Cloudflare IP fetching
+ Automatically fetches Cloudflare IPv4/IPv6 CIDR ranges and generates
+ RemoteIPTrustedProxy configuration for mod_remoteip. Enables real
+ client IP restoration when Apache is behind Cloudflare. Port of
+ nginx-cf-realip for Apache httpd. Written in Rust for memory safety.

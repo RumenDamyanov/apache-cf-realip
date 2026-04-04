@@ -1,0 +1,44 @@
+name: Build
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]
+    env:
+      TARGET_ARCH: ${{ matrix.arch }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        if: matrix.arch == 'arm64'
+        uses: docker/setup-qemu-action@v4
+        with:
+          platforms: linux/arm64
+
+      - name: Build module (${{ matrix.arch }})
+        run: |
+          set -euxo pipefail
+          docker run --platform=linux/${TARGET_ARCH} --rm -v "$PWD":/workspace -w /workspace ubuntu:25.04 /bin/bash -c "\
+            set -euxo pipefail; \
+            apt-get update; \
+            DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential apache2-dev ca-certificates file curl; \
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; \
+            source ~/.cargo/env; \
+            cargo build --release; \
+            cargo test; \
+            cargo clippy -- -D warnings; \
+            echo '${TARGET_ARCH} build successful'; \
+          "

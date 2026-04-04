@@ -1,0 +1,15 @@
+Source: apache-cf-remoteip
+Section: httpd
+Priority: optional
+Maintainer: Rumen Damyanov <contact@rumenx.com>
+Build-Depends: debhelper-compat (= 13), rustc, cargo, apache2-dev, libldap-dev
+Standards-Version: 4.6.0
+Homepage: https://github.com/RumenDamyanov/apache-cf-remoteip
+
+Package: apache-cf-remoteip
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         apache2 (>= 2.4.0)
+Description: apache-cf-remoteip Apache module
+ Apache httpd module. See project README for details.

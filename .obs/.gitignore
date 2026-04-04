@@ -1,0 +1,9 @@
+*.tar.gz
+*.tar.xz
+*.dsc
+*/
+!README.md
+!*.spec
+!*.sh
+!debian.*
+!.gitignore

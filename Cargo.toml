@@ -1,0 +1,26 @@
+[package]
+name = "apache-cf-remoteip"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Apache module for automatic Cloudflare IP fetching and mod_remoteip integration"
+repository = "https://github.com/RumenDamyanov/apache-cf-remoteip"
+authors = ["Rumen Damyanov <contact@rumenx.com>"]
+
+[lib]
+name = "cf_remoteip"
+crate-type = ["staticlib"]
+
+[dependencies]
+# HTTP client for fetching Cloudflare IP lists
+ureq = { version = "2", features = ["tls"] }
+# SHA256 for change detection
+sha2 = "0.10"
+# IP network parsing
+ipnet = "2"
+# C-compatible types
+libc = "0.2"
+
+[profile.release]
+lto = true
+strip = true
