@@ -109,7 +109,7 @@ jobs:
           find collected -name SHA256SUMS -exec cat {} + | sort -u > SHA256SUMS
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ needs.build-release.outputs.tag_name }}
           name: ${{ needs.build-release.outputs.tag_name }}
