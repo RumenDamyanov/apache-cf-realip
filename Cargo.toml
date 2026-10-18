@@ -15,7 +15,7 @@ crate-type = ["staticlib"]
 # HTTP client for fetching Cloudflare IP lists
 ureq = { version = "2", features = ["tls"] }
 # SHA256 for change detection
-sha2 = "0.10"
+sha2 = "0.11"
 # IP network parsing
 ipnet = "2"
 # C-compatible types
